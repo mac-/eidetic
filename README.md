@@ -6,6 +6,7 @@ Eidetic is a NodeJS module that will cache JS values in memory. Features of the 
 * A configurable cache size with intelligent removal of items when the size is full.
 * An optional sliding expiration per cached item
 * Provides stats including cache hits, misses, and current number of items in the cache
+* 100% unit test coverage
 
 [![Build Status](https://secure.travis-ci.org/mac-/eidetic.png)](http://travis-ci.org/mac-/eidetic)
 

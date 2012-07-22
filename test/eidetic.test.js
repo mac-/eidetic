@@ -163,7 +163,7 @@ describe('Eidetic Cache', function() {
 			cache.put('key', testValue2, 10);
 
 			var value = cache.get('key');
-			assert.strictEqual(value, testValue2, 'the first cached value should be overwritten with the second');
+			assert(_.isEqual(value, testValue2), 'the first cached value should be overwritten with the second');
 			done();
 
 		});
