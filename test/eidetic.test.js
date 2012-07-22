@@ -37,12 +37,12 @@ describe('Eidetic Cache', function() {
 	});
 	describe('get()', function() {
 		
-		it('should get a null value when there is no value in the cache', function(done) {
+		it('should get an undefined value when there is no value in the cache', function(done) {
 
 			cache = new Cache();
 			var value = cache.get('badKey');
 
-			assert.strictEqual(value, null, 'The value should be null');
+			assert.strictEqual(value, undefined, 'The value should be undefined');
 			done();
 		});
 
@@ -84,7 +84,7 @@ describe('Eidetic Cache', function() {
 
 			var value = cache.get('key');
 
-			assert.strictEqual(value, null, 'The value should be null');
+			assert.strictEqual(value, undefined, 'The value should be undefined');
 			done();
 		});
 	});
@@ -98,7 +98,7 @@ describe('Eidetic Cache', function() {
 
 			var value = cache.get('key');
 
-			assert.strictEqual(value, null, 'The value should be null');
+			assert.strictEqual(value, undefined, 'The value should be undefined');
 			done();
 		});
 	});
@@ -146,7 +146,7 @@ describe('Eidetic Cache', function() {
 
 				setTimeout(function() {
 					var value = cache.get('key');
-					assert.strictEqual(value, null, 'the first cached value should be removed from the cache before it\'s expiration');
+					assert.strictEqual(value, undefined, 'the first cached value should be removed from the cache before it\'s expiration');
 					value = cache.get('key1');
 					assert(_.isEqual(value, testValue), 'the second cached value should be in the cache still');
 					done();
@@ -175,7 +175,7 @@ describe('Eidetic Cache', function() {
 
 			setTimeout(function() {
 				var value = cache.get('key');
-				assert.strictEqual(value, null, 'the cached value should be removed after expiration');
+				assert.strictEqual(value, undefined, 'the cached value should be removed after expiration');
 				done();
 			}, 1300);
 
