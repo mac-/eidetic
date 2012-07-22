@@ -1,0 +1,25 @@
+{
+	"name": "eidetic",
+	"description": "A Node JS module for storing objects in a memory-based cache.",
+	"contributors": [
+		"Mac Angell <mac.ang311@gmail.com>"
+	],
+	"version": "0.1.0",
+	"dependencies": {
+	},
+	"devDependencies": {
+		"mocha": "1.0.0",
+		"jshint": "0.6.3"
+	},
+	"keywords": [
+		"cache"
+	],
+	"engines": {
+		"node": "0.6.19"
+	},
+	"main": "./lib/eidetic.js",
+	"repository": {
+		"type": "git",
+		"url": "git@github.com:mac-/eidetic.git"
+	}
+}
