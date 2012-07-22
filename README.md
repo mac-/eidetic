@@ -61,7 +61,7 @@ Here is an example:
 	var cachedValue = cache.get('key'); // {my: 'obj'}
 	cache.del('key');
 
-	cachedValue = cache.get('key'); // null
+	cachedValue = cache.get('key'); // undefined
 		
 
 License
