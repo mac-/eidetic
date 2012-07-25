@@ -94,11 +94,24 @@ describe('Eidetic Cache', function() {
 
 			cache = new Cache();
 			cache.put('key', testValue);
-			cache.del('key');
+			var wasDeleted = cache.del('key');
+			assert.strictEqual(wasDeleted, true, 'The value should be deleted');
 
 			var value = cache.get('key');
 
 			assert.strictEqual(value, undefined, 'The value should be undefined');
+			done();
+		});
+		it('should remove entry from cache', function(done) {
+
+			cache = new Cache();
+			cache.put('key', testValue);
+			var wasDeleted = cache.del('badKey');
+			assert.strictEqual(wasDeleted, false, 'The value should not be deleted');
+
+			var value = cache.get('key');
+
+			assert(_.isEqual(value, testValue), 'The value should exist');
 			done();
 		});
 	});
