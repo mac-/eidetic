@@ -151,17 +151,39 @@ describe('Eidetic Cache', function() {
 
 		it('hitting the max cache size on put should remove the least recently used', function(done) {
 
-			cache = new Cache({maxSize: 1});
+			cache = new Cache({maxSize: 1, canPutWhenFull: true});
 			cache.put('key', testValue, 10);
 			setTimeout(function() {
 
-				cache.put('key1', testValue, 10);
+				var didPut = cache.put('key1', testValue, 10);
+				assert.strictEqual(didPut, true, 'should not fail when cache size is maxed out');
 
 				setTimeout(function() {
 					var value = cache.get('key');
 					assert.strictEqual(value, undefined, 'the first cached value should be removed from the cache before it\'s expiration');
 					value = cache.get('key1');
 					assert(_.isEqual(value, testValue), 'the second cached value should be in the cache still');
+					done();
+				}, 100);
+
+			}, 10);
+
+		});
+
+		it('hitting the max cache size on put should not remove the least recently used', function(done) {
+
+			cache = new Cache({maxSize: 1});
+			cache.put('key', testValue, 10);
+			setTimeout(function() {
+
+				var didPut = cache.put('key1', testValue, 10);
+				assert.strictEqual(didPut, false, 'should fail if cache size is maxed out');
+
+				setTimeout(function() {
+					var value = cache.get('key');
+					assert(_.isEqual(value, testValue), 'the first cached value should not be removed from the cache before it\'s expiration');
+					value = cache.get('key1');
+					assert.strictEqual(value, undefined, 'the second cached value should not be in the cache');
 					done();
 				}, 100);
 
