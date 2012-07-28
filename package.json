@@ -23,7 +23,7 @@
 	"main": "./lib/eidetic.js",
 	"repository": {
 		"type": "git",
-		"url": "git@github.com:mac-/eidetic.git"
+		"url": "https://github.com/mac-/eidetic"
 	},
 	"scripts": {
 		"test": "make test"
