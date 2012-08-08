@@ -18,7 +18,7 @@
 		"memory"
 	],
 	"engines": {
-		"node": ">= 0.6.19"
+		"node": ">= 0.6.0"
 	},
 	"main": "./lib/eidetic.js",
 	"repository": {
