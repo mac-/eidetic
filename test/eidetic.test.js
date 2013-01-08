@@ -1,5 +1,5 @@
 var assert = require('assert'),
-	Cache = require('../lib-test/Eidetic.js'),
+	Cache = require('../lib-test/eidetic.js'),
 	_ = require('underscore'),
 	options = {
 		useSlidingExpiration: false,
@@ -51,7 +51,7 @@ describe('Eidetic Cache', function() {
 			cache = new Cache();
 			cache.put('key', testValue);
 			var value = cache.get('key');
-
+			
 			assert(_.isEqual(value, testValue), 'The cached value should be equal to the test value');
 			done();
 		});
