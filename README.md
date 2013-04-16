@@ -9,6 +9,7 @@ Eidetic is a NodeJS module that will cache JS values in memory. Features of the 
 * 100% unit test coverage
 
 [![Build Status](https://secure.travis-ci.org/mac-/eidetic.png)](http://travis-ci.org/mac-/eidetic)
+[![NPM version](https://badge.fury.io/js/eidetic.png)](http://badge.fury.io/js/eidetic)
 
 Installation
 ===
