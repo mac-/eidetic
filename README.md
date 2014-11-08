@@ -1,5 +1,4 @@
-eidetic
-===
+# eidetic
 
 Eidetic is a NodeJS module that will cache JS values in memory. Features of the module include:
 
@@ -9,17 +8,35 @@ Eidetic is a NodeJS module that will cache JS values in memory. Features of the 
 * 100% unit test coverage
 
 [![Build Status](https://secure.travis-ci.org/mac-/eidetic.png)](http://travis-ci.org/mac-/eidetic)
+[![Coverage Status](https://coveralls.io/repos/mac-/eidetic/badge.png)](https://coveralls.io/r/mac-/eidetic)
 [![NPM version](https://badge.fury.io/js/eidetic.png)](http://badge.fury.io/js/eidetic)
 [![Dependency Status](https://david-dm.org/mac-/eidetic.png)](https://david-dm.org/mac-/eidetic)
 
 [![NPM](https://nodei.co/npm/eidetic.png?downloads=true&stars=true)](https://nodei.co/npm/eidetic/)
 
-Installation
-===
+## Contributing
+
+This module makes use of a `Makefile` for building/testing purposes. After obtaining a copy of the repo, run the following commands to make sure everything is in working condition before you start your work:
+
+	make install
+	make test
+
+Before committing a change to your fork/branch, run the following commands to make sure nothing is broken:
+
+	make test
+	make test-cov
+
+Don't forget to bump the version in the `package.json` using the [semver](http://semver.org/spec/v2.0.0.html) spec as a guide for which part to bump. Submit a pull request when your work is complete.
+
+***Notes:***
+* Please do your best to ensure the code coverage does not drop. If new unit tests are required to maintain the same level of coverage, please include those in your pull request.
+* Please follow the same coding/formatting practices that have been established in the module.
+
+## Installation
+
 	npm install eidetic
 
-Usage
-===
+## Usage
 
 The put method is used to store a value for a given key in the cache:
 
@@ -27,7 +44,7 @@ The put method is used to store a value for a given key in the cache:
 
 * key - required, a unique string that is used to access the value
 * value - required, the value to store in the cache
-* durationSeconds - optional (default is 1), the number of seconds to hold the value in the cache
+* durationSeconds - optional (default is 1), the number of seconds to hold the value in the cache. If this is set to `0` AND there is already a value stored at the specified key, the value is updated without modifying the TTL.
 * useSlidingExpiration - optional (default is false), whether or not to refresh the expiration on a cache hit
 * returns true if the put was successful, false otherwise
 
@@ -83,18 +100,6 @@ Here is an example:
 	cachedValue = cache.get('key'); // undefined
 		
 
-License
-===
-The MIT License (MIT) Copyright (c) 2012 Mac Angell
+# License
 
-Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
-
-
-
-
-[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/mac-/eidetic/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
-
+The MIT License (MIT)

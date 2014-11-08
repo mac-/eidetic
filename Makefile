@@ -1,28 +1,24 @@
 clean:
-	npm cache clean && rm -rf node_modules/*
+	rm -rf node_modules/*
 
 install:
 	npm install
 
 test:
-	./test/test.sh
+	./node_modules/.bin/jshint lib/* --config test/jshint/config.json
+	@NODE_ENV=test ./node_modules/.bin/mocha --recursive --reporter spec --timeout 3000 test/unit
 
-coverage:
-	# To install jscoverage:
-	#  git clone https://github.com/visionmedia/node-jscoverage.git
-	#  cd node-jscoverage
-	#  ./configure && make
-	#  sudo make install
+test-cov:
+	@NODE_ENV=test ./node_modules/.bin/mocha --require blanket --recursive --timeout 3000 -R travis-cov test/unit
+
+test-lcov:
+	@NODE_ENV=test ./node_modules/.bin/mocha --require blanket --recursive --timeout 3000 -R mocha-lcov-reporter test/unit
+
+test-cov-html:
+	@NODE_ENV=test ./node_modules/.bin/mocha --require blanket --recursive --timeout 3000 -R html-cov test/unit > test/coverage.html
+	xdg-open "file://${CURDIR}/test/coverage.html" &
+
+check-deps:
+	./node_modules/.bin/node-dependencies
 	
-	#clean first
-	rm -rf coverage && mkdir coverage
-	#build the instrumented code with jscoverage
-	jscoverage lib coverage/lib-instrumented
-	#create the symlink that the unit tests are expecting
-	ln -fns ./coverage/lib-instrumented/ ./lib-test
-	#run the tests against the instrumented code
-	./node_modules/.bin/mocha -R html-cov > ./coverage/coverage.html
-	# (MacOSX) open the coverage result in the browser
-	open "file://${CURDIR}/coverage/coverage.html" &
-
-.PHONY: test coverage
+.PHONY: test test-cov test-lcov test-cov-html

@@ -4,15 +4,18 @@
 	"contributors": [
 		"Mac Angell <mac.ang311@gmail.com>"
 	],
-	"version": "0.1.1",
+	"version": "0.2.0",
 	"dependencies": {
-		"underscore": "1.x.x",
 		"clone": "0.1.x"
 	},
 	"devDependencies": {
 		"mocha": "1.x.x",
-		"jshint": "0.6.x"
-		
+		"jshint": "2.x.x",
+		"travis-cov": "0.x.x",
+		"blanket": "1.x.x",
+		"node-dependencies": "0.x.x",
+		"coveralls": "2.x.x",
+		"mocha-lcov-reporter": "0.x.x"
 	},
 	"keywords": [
 		"cache",
@@ -27,7 +30,19 @@
 		"url": "https://github.com/mac-/eidetic"
 	},
 	"scripts": {
-		"test": "make test"
+		"test": "make test && make test-cov && make test-lcov | ./node_modules/coveralls/bin/coveralls.js"
+	},
+	"config": {
+		"blanket": {
+			"pattern": "//^((?!/node_modules/)(?!/test/).)*$/ig",
+			"onlyCwd": true,
+			"data-cover-flags": {
+				"branchTracking": true
+			}
+		},
+		"travis-cov": {
+			"threshold": 100
+		}
 	},
 	"license": "MIT"
 }
