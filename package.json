@@ -4,16 +4,15 @@
 	"contributors": [
 		"Mac Angell <mac.ang311@gmail.com>"
 	],
-	"version": "0.2.2",
+	"version": "0.3.0",
 	"dependencies": {
-		"clone": "0.1.x"
+		"clone": "0.2.x"
 	},
 	"devDependencies": {
 		"mocha": "1.x.x",
 		"jshint": "2.x.x",
 		"travis-cov": "0.x.x",
 		"blanket": "1.x.x",
-		"node-dependencies": "0.x.x",
 		"coveralls": "2.x.x",
 		"mocha-lcov-reporter": "0.x.x"
 	},

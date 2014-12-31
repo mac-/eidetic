@@ -33,6 +33,19 @@ describe('Eidetic Cache', function() {
 			assert.strictEqual(cache.currentSize(), 1, 'The current cache size should be 1');
 			done();
 		});
+
+		it('should give all keys in the cache', function(done) {
+
+			cache = new Cache({maxSize: 2});
+			cache.put('key1', testValue);
+			cache.put('key2', testValue2);
+
+			assert(cache.keys() instanceof Array, 'The keys should be an Array');
+			assert.strictEqual(cache.keys().length, 2, 'The number of keys should be 2');
+			assert(cache.keys().indexOf('key1') >= 0, 'The array should contain key1');
+			assert(cache.keys().indexOf('key2') >= 0, 'The array should contain key2');
+			done();
+		});
 	});
 	describe('get()', function() {
 		
