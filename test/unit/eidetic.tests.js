@@ -68,6 +68,18 @@ describe('Eidetic Cache', function() {
 			done();
 		});
 
+		it('should not allow the cached value to be modified after a get', function(done) {
+
+			cache = new Cache();
+			cache.put('key', testValue);
+			var value = cache.get('key');
+
+			value.fnord = 'hacky';
+			
+			assert.deepEqual(cache.get('key'), testValue, 'The cached value should be equal to the test value');
+			done();
+		});
+
 		it('should get the cached value after the original expiration when using a sliding expiration', function(done) {
 
 			cache = new Cache();
@@ -215,6 +227,21 @@ describe('Eidetic Cache', function() {
 
 		});
 
+		it('should not allow the cached value to be modify after the insert', function(done) {
+
+			var valueToCache = { some: 'object' };
+
+			cache = new Cache();
+			cache.put('key', testValue, valueToCache);
+
+			valueToCache.some = 'fake';
+
+			var value = cache.get('key');
+			assert.notDeepEqual(value, valueToCache, 'the cached value should be the same as the value at the time of insert');
+			done();
+
+		});
+
 		it('cached value should be removed after expiration', function(done) {
 
 			cache = new Cache();
@@ -239,7 +266,6 @@ describe('Eidetic Cache', function() {
 
 				setTimeout(function() {
 					var value = cache.get('key');
-					console.log(value);
 					assert.strictEqual(value, undefined, 'the cached value should be removed after expiration');
 					done();
 				}, 600);
