@@ -62,6 +62,13 @@ The del method is used to remove a specific item from the cache:
 * key - required, a unique string that is used to access the value
 * returns true if there was an entry that was successfully removed from the cache
 
+The ttl method is used to get the number of seconds until a specific item expires in the cache:
+
+	ttl(key:String)
+
+* key - required, a unique string that is used to access the value
+* returns a number representing the number of seconds until the item expires
+
 The clear method is used to empty the entire cache:
 
 	clear()
@@ -73,12 +80,12 @@ The following methods can be called to get stats on the cache:
 	currentSize()
 
 The following are publically available properties:
-	
+
 	maxSize (Number, defaults to 500) - The max number of items that can live in the cache
 	canPutWhenFull (Boolean, defaults to false) - When trying to put to a full cache, if set to true, eidetic will remove the least recently used entry to  make room for the one you are currently storing. If set to false, the storing of the entry will fail.
 
 Valid options to pass to the constructor:
-	
+
 	maxSize (see above)
 	canPutWhenFull (see above)
 	logger (an instance of your own logging object)
@@ -93,12 +100,12 @@ Here is an example:
 	var cache = new Cache(options);
 
 	cache.put('key', {my: 'obj'}, 60, true);
-	
+
 	var cachedValue = cache.get('key'); // {my: 'obj'}
 	cache.del('key');
 
 	cachedValue = cache.get('key'); // undefined
-		
+
 
 # License
 

@@ -20,7 +20,7 @@ var assert = require('assert'),
 
 describe('Eidetic Cache', function() {
 	describe('stats', function() {
-		
+
 		it('should give accurate stats on the cache', function(done) {
 
 			cache = new Cache({maxSize: 2});
@@ -48,7 +48,7 @@ describe('Eidetic Cache', function() {
 		});
 	});
 	describe('get()', function() {
-		
+
 		it('should get an undefined value when there is no value in the cache', function(done) {
 
 			cache = new Cache();
@@ -63,7 +63,7 @@ describe('Eidetic Cache', function() {
 			cache = new Cache();
 			cache.put('key', testValue);
 			var value = cache.get('key');
-			
+
 			assert.deepEqual(value, testValue, 'The cached value should be equal to the test value');
 			done();
 		});
@@ -75,7 +75,7 @@ describe('Eidetic Cache', function() {
 			var value = cache.get('key');
 
 			value.fnord = 'hacky';
-			
+
 			assert.deepEqual(cache.get('key'), testValue, 'The cached value should be equal to the test value');
 			done();
 		});
@@ -99,7 +99,7 @@ describe('Eidetic Cache', function() {
 		});
 	});
 	describe('clear()', function() {
-		
+
 		it('should clear the entire cache', function(done) {
 
 			cache = new Cache();
@@ -113,7 +113,7 @@ describe('Eidetic Cache', function() {
 		});
 	});
 	describe('del()', function() {
-		
+
 		it('should remove entry from cache', function(done) {
 
 			cache = new Cache();
@@ -137,6 +137,78 @@ describe('Eidetic Cache', function() {
 
 			assert.deepEqual(value, testValue, 'The value should exist');
 			done();
+		});
+	});
+	describe('ttl()', function() {
+
+		it('should get a ttl of 0 when cached item does not exist', function(done) {
+
+			cache = new Cache();
+			cache.put('key', testValue);
+			setTimeout(function() {
+				var ttl = cache.ttl('key');
+				assert.strictEqual(ttl, 0, 'The value should be 0');
+
+				var value = cache.get('key');
+
+				assert.strictEqual(value, undefined, 'The value should be undefined');
+				done();
+			}, 1300)
+		});
+		it('should get a ttl when cached item exists', function(done) {
+
+			cache = new Cache();
+			cache.put('key', testValue, 10);
+			var ttl = cache.ttl('key');
+			assert.strictEqual(ttl, 10, 'The value should be 10');
+			done();
+		});
+		it('should get a ttl after some time when cached item exists', function(done) {
+
+			cache = new Cache();
+			cache.put('key', testValue, 10);
+			setTimeout(function() {
+				var ttl = cache.ttl('key');
+				assert.strictEqual(ttl, 9, 'The value should be 9');
+				done();
+			}, 500);
+		});
+		it('should get a new ttl when an item is updated after some time', function(done) {
+
+			cache = new Cache();
+			cache.put('key', testValue, 10);
+			setTimeout(function() {
+				cache.put('key', testValue, 10);
+				var ttl = cache.ttl('key');
+				assert.strictEqual(ttl, 10, 'The value should be 10');
+				done();
+			}, 500);
+		});
+		it('should get a same ttl when an item is updated with a 0 duration after some time', function(done) {
+
+			cache = new Cache();
+			cache.put('key', testValue, 10);
+			setTimeout(function() {
+				cache.put('key', testValue, 0);
+				var ttl = cache.ttl('key');
+				assert.strictEqual(ttl, 9, 'The value should be 9');
+				done();
+			}, 500);
+		});
+		it('should get a new ttl when an item is fetched with a sliding expiration after some time', function(done) {
+
+			cache = new Cache();
+			cache.put('key', testValue, 10, true);
+			setTimeout(function() {
+				cache.get('key');
+				var ttl = cache.ttl('key');
+				assert.strictEqual(ttl, 10, 'The value should be 10');
+				setTimeout(function() {
+					var ttl = cache.ttl('key');
+					assert.strictEqual(ttl, 9, 'The value should be 9');
+					done();
+				}, 500);
+			}, 500);
 		});
 	});
 	describe('put()', function() {
