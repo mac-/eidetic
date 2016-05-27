@@ -202,13 +202,13 @@ describe('Eidetic Cache', function() {
 			setTimeout(function() {
 				cache.get('key');
 				var ttl = cache.ttl('key');
-				assert.strictEqual(ttl, 10, 'The value should be 10');
+				assert(ttl >= 9, 'The value should be at least 9');
 				setTimeout(function() {
 					var ttl = cache.ttl('key');
 					assert.strictEqual(ttl, 9, 'The value should be 9');
 					done();
 				}, 500);
-			}, 500);
+			}, 1300);
 		});
 	});
 	describe('put()', function() {
